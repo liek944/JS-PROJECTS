@@ -201,6 +201,27 @@
 <button id="runButton">Run</button>
 <div id="errorMessage" style="color:#d32f2f; text-align:center; margin:20px 0; font-weight:600;"></div>
 
+        <div style="margin-top:40px; text-align:center;">
+            <label for="variationInput" style="font-weight:600; margin-right:10px;">Type a variation ("alert", "console", or "dom"):</label>
+            <input 
+                type="text" 
+                id="variationInput" 
+                placeholder="alert, console, or dom"
+                style="
+                    padding: 10px 18px;
+                    border-radius: 8px;
+                    border: 1.5px solid #5a7df9;
+                    font-size: 1rem;
+                    outline: none;
+                    transition: border 0.3s;
+                    margin-right: 10px;
+                    box-shadow: 0 2px 8px rgba(110,142,251,0.12);
+                "
+                onfocus="this.style.borderColor='#a777e3'"
+                onblur="this.style.borderColor='#5a7df9'"
+            >
+            <button class="button" id="variationButton" style="padding: 10px 24px;">Show Hello World</button>
+        </div>
         <footer>
             <p>Implement the JavaScript functionality for these buttons</p>
         </footer>
