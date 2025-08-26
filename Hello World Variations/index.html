@@ -197,8 +197,7 @@
                 // Console messages will appear here
             </div>
         </div>
-        <input id="typeInput" placeholder="Type: alert, console, dom">
-<button id="runButton">Run</button>
+
 <div id="errorMessage" style="color:#d32f2f; text-align:center; margin:20px 0; font-weight:600;"></div>
 
         <div style="margin-top:40px; text-align:center;">
@@ -248,13 +247,19 @@ document.getElementById('consoleButton').addEventListener('click', function() {
 document.getElementById('domButton').addEventListener('click', function() {
     showHelloWorld('dom');
 });
-document.getElementById('runButton').addEventListener('click', () => {
-    const userInput = document.getElementById('typeInput').value.trim();
-
+function handleVariationInput() {
+    const userInput = document.getElementById('variationInput').value.trim();
     if (userInput === 'console' || userInput === 'dom' || userInput === 'alert') {
         showHelloWorld(userInput);
     } else {
         displayError(`"${userInput}" is not a valid command. Available commands: console, dom, alert`);
+    }
+}
+
+document.getElementById('variationButton').addEventListener('click', handleVariationInput);
+document.getElementById('variationInput').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        handleVariationInput();
     }
 });
 function displayError(message) {
