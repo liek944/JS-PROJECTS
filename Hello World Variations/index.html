@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World Variations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .variations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 25px;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            color: #6e8efb;
+            margin-bottom: 15px;
+        }
+        
+        .card-description {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .button {
+            background: #6e8efb;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(110, 142, 251, 0.4);
+        }
+        
+        .button:hover {
+            background: #5a7df9;
+            transform: scale(1.05);
+        }
+        
+        .button:active {
+            transform: scale(0.98);
+        }
+        
+        .demo-area {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        
+        .console-output {
+            margin-top: 40px;
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .console-title {
+            color: #f8f8f2;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .console-title::before {
+            content: ">";
+            color: #a777e3;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .console-content {
+            white-space: pre-wrap;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: white;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .variations {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hello World Variations</h1>
+            <p class="subtitle">Three different ways to display "Hello World" using JavaScript</p>
+        </header>
+        
+        <div class="variations">
+            <div class="card">
+                <h2 class="card-title">Alert Dialog</h2>
+                <p class="card-description">This will display "Hello World" in a browser alert dialog box when clicked.</p>
+                <button class="button" id="alertButton">Show Alert</button>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">Console Output</h2>
+                <p class="card-description">This will log "Hello World" to the browser console when clicked.</p>
+                <button class="button" id="consoleButton">Log to Console</button>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">DOM Manipulation</h2>
+                <p class="card-description">This will change the text below to "Hello World" when clicked.</p>
+                <button class="button" id="domButton">Change Text</button>
+                <div class="demo-area" id="textDemo">
+                    Click the button to change this text
+                </div>
+            </div>
+        </div>
+        
+        <div class="console-output">
+            <div class="console-title">Console Output</div>
+            <div class="console-content" id="consoleOutput">
+                // Console messages will appear here
+            </div>
+        </div>
+        
+        <footer>
+            <p>Implement the JavaScript functionality for these buttons</p>
+        </footer>
+    </div>
+
+    <script>
+        // You will implement the JavaScript functionality here
+        // For now, these are just empty functions for you to complete
+        
+        document.getElementById('alertButton').addEventListener('click', function() {
+            // TODO: Show an alert with "Hello World"
+            alert("Hello World");
+        });
+        
+        document.getElementById('consoleButton').addEventListener('click', function() {
+            // TODO: Log "Hello World" to the console
+            // Also update the console-output div to show the message
+            console.log("Hello World")
+            const element = document.getElementById("consoleOutput")
+            element.textContent = "Hello World"
+
+        });
+        
+        document.getElementById('domButton').addEventListener('click', function() {
+            // TODO: Change the text in the #textDemo div to "Hello World"
+            const element = document.getElementById("textDemo")
+            element.textContent = "Hello World"
+        });
+    </script>
+</body>
+</html>
