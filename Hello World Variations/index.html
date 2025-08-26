@@ -226,6 +226,30 @@
             const element = document.getElementById("textDemo")
             element.textContent = "Hello World"
         });
+
+
+// Optional Refactor Example
+
+        /* function showHelloWorld(type) {
+    if (type === 'alert') {
+        alert("Hello World");
+    } else if (type === 'console') {
+        console.log("Hello World");
+        document.getElementById("consoleOutput").textContent = "Hello World";
+    } else if (type === 'dom') {
+        document.getElementById("textDemo").textContent = "Hello World";
+    }
+}
+
+document.getElementById('alertButton').addEventListener('click', function() {
+    showHelloWorld('alert');
+});
+document.getElementById('consoleButton').addEventListener('click', function() {
+    showHelloWorld('console');
+});
+document.getElementById('domButton').addEventListener('click', function() {
+    showHelloWorld('dom');
+});*/
     </script>
 </body>
 </html>
