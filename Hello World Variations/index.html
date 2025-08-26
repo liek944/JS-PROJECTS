@@ -197,40 +197,17 @@
                 // Console messages will appear here
             </div>
         </div>
-        
+        <input id="typeInput" placeholder="Type: alert, console, dom">
+<button id="runButton">Run</button>
+<div id="errorMessage" style="color:#d32f2f; text-align:center; margin:20px 0; font-weight:600;"></div>
+
         <footer>
             <p>Implement the JavaScript functionality for these buttons</p>
         </footer>
     </div>
 
     <script>
-        // You will implement the JavaScript functionality here
-        // For now, these are just empty functions for you to complete
-        
-        document.getElementById('alertButton').addEventListener('click', function() {
-            // TODO: Show an alert with "Hello World"
-            alert("Hello World");
-        });
-        
-        document.getElementById('consoleButton').addEventListener('click', function() {
-            // TODO: Log "Hello World" to the console
-            // Also update the console-output div to show the message
-            console.log("Hello World")
-            const element = document.getElementById("consoleOutput")
-            element.textContent = "Hello World"
-
-        });
-        
-        document.getElementById('domButton').addEventListener('click', function() {
-            // TODO: Change the text in the #textDemo div to "Hello World"
-            const element = document.getElementById("textDemo")
-            element.textContent = "Hello World"
-        });
-
-
-// Optional Refactor Example
-
-        /* function showHelloWorld(type) {
+         function showHelloWorld(type) {
     if (type === 'alert') {
         alert("Hello World");
     } else if (type === 'console') {
@@ -249,7 +226,24 @@ document.getElementById('consoleButton').addEventListener('click', function() {
 });
 document.getElementById('domButton').addEventListener('click', function() {
     showHelloWorld('dom');
-});*/
+});
+document.getElementById('runButton').addEventListener('click', () => {
+    const userInput = document.getElementById('typeInput').value.trim();
+
+    if (userInput === 'console' || userInput === 'dom' || userInput === 'alert') {
+        showHelloWorld(userInput);
+    } else {
+        displayError(`"${userInput}" is not a valid command. Available commands: console, dom, alert`);
+    }
+});
+function displayError(message) {
+    document.getElementById('errorMessage').textContent = message;
+    setTimeout(() => {
+        document.getElementById('errorMessage').textContent = '';
+    }, 3000); // Clear error after 3 seconds
+}
+
+       
     </script>
 </body>
 </html>
