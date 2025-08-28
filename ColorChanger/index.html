@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Background Color Changer</title>
+        <style>
+            /* Reset */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #f0f0f0;
+                transition: background-color 0.5s ease;
+                font-family: Arial, sans-serif;
+            }
+
+            button {
+                padding: 12px 24px;
+                font-size: 1.2rem;
+                font-weight: bold;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                background-color: #333;
+                color: white;
+                transition:
+                    transform 0.2s ease,
+                    background-color 0.3s ease;
+            }
+
+            button:hover {
+                transform: scale(1.1);
+                background-color: #555;
+            }
+        </style>
+    </head>
+    <body>
+        <button id="colorBtn">Change Background</button>
+        <script>
+            const btn = document.getElementById("colorBtn");
+
+            btn.addEventListener("click", function () {
+                const randomColor = generateRandomHex();
+                document.body.style.backgroundColor = randomColor;
+            });
+
+            function generateRandomHex() {
+                const hexChars = "0123456789ABCDEF";
+                let color = "#";
+                for (let i = 0; i < 6; i++) {
+                    color += hexChars[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+        </script>
+    </body>
+</html>
