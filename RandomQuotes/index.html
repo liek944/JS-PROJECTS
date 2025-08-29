@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Random Quote Generator</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Arial", sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .quote-container {
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+                padding: 40px;
+                max-width: 600px;
+                width: 100%;
+                text-align: center;
+                transition: transform 0.3s ease;
+            }
+
+            .quote-container:hover {
+                transform: translateY(-5px);
+            }
+
+            .quote-text {
+                font-size: 1.5rem;
+                color: #333;
+                line-height: 1.6;
+                margin-bottom: 20px;
+                min-height: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-style: italic;
+                position: relative;
+            }
+
+            .quote-text::before {
+                content: '"';
+                font-size: 4rem;
+                color: #667eea;
+                position: absolute;
+                left: -20px;
+                top: -10px;
+                font-family: Georgia, serif;
+            }
+
+            .quote-text::after {
+                content: '"';
+                font-size: 4rem;
+                color: #667eea;
+                position: absolute;
+                right: -20px;
+                bottom: -30px;
+                font-family: Georgia, serif;
+            }
+
+            .quote-author {
+                font-size: 1.1rem;
+                color: #666;
+                margin-bottom: 30px;
+                font-weight: 500;
+            }
+
+            .quote-author::before {
+                content: "— ";
+            }
+
+            .generate-btn {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                padding: 15px 40px;
+                font-size: 1.1rem;
+                font-weight: 600;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            }
+
+            .generate-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            }
+
+            .generate-btn:active {
+                transform: translateY(0);
+            }
+
+            /* Responsive design */
+            @media (max-width: 768px) {
+                .quote-container {
+                    padding: 30px 25px;
+                }
+
+                .quote-text {
+                    font-size: 1.3rem;
+                }
+
+                .quote-text::before,
+                .quote-text::after {
+                    font-size: 3rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="quote-container">
+            <div class="quote-text" id="quoteText">
+                Click the button below to generate an inspiring quote!
+            </div>
+            <div
+                class="quote-author"
+                id="quoteAuthor"
+                style="display: none"
+            ></div>
+            <button class="generate-btn" id="generateBtn">
+                Generate Quote
+            </button>
+        </div>
+        <script>
+            const btn = document.getElementById("generateBtn");
+
+            btn.addEventListener("click", function () {
+                const randomQuotes = generateQuotes();
+            });
+
+            function generateQuotes() {
+                const quotes = [
+                    "I put my phone on airplane mode and it still didn’t fly.",
+                    "Exercise? I thought you said extra fries.",
+                    "They say money doesn’t buy happiness, but have you ever seen someone frowning on a jet ski?",
+                    "I’d agree with you, but then we’d both be wrong.",
+                    "Life is short. Smile while you still have teeth.",
+                ];
+
+                const randomIndex = Math.floor(Math.random() * quotes.length)
+                const randomQuote = quotes[randomIndex]
+                document.getElementById("quoteText").textContent = randomQuote
+                }
+            
+        </script>
+    </body>
+</html>
