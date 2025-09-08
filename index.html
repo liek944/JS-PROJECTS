@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Life in Weeks</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f8f9fa;
+      padding: 20px;
+      color: #333;
+    }
+    .controls {
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(52, 10px);
+      gap: 2px;
+    }
+    .week {
+      width: 10px;
+      height: 10px;
+      background: #ddd;
+    }
+    .week.passed {
+      background: #333;
+    }
+    .week.current {
+      background: orange;
+    }
+  </style>
+</head>
+<body>
+  <h1>Life in Weeks</h1>
+  <div class="controls">
+    <label>
+      Date of Birth:
+      <input type="date" id="dob" />
+    </label>
+    <button id="calcBtn">Calculate</button>
+  </div>
+  <p id="stats">Enter your date of birth above.</p>
+  <div id="grid" class="grid"></div>
+
+  <script>
+    const dobInput = document.getElementById("dob");
+    const calcBtn = document.getElementById("calcBtn");
+    const statsEl = document.getElementById("stats");
+    const gridEl = document.getElementById("grid");
+
+    const lifeExpectancy = 90; // years
+    const totalWeeks = lifeExpectancy * 52;
+
+    // build grid once
+    for (let i = 0; i < totalWeeks; i++) {
+      const square = document.createElement("div");
+      square.className = "week";
+      gridEl.appendChild(square);
+    }
+    const squares = gridEl.querySelectorAll(".week");
+
+    calcBtn.addEventListener("click", () => {
+      if (!dobInput.value) return;
+      const dob = new Date(dobInput.value);
+      const today = new Date();
+      const diffMs = today - dob;
+      const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      const weeks = Math.floor(days / 7);
+
+      statsEl.textContent = `You have lived about ${weeks} weeks (${days} days).`;
+
+      // update grid
+      squares.forEach((sq, i) => {
+        sq.className = "week";
+        if (i < weeks) {
+          sq.classList.add("passed");
+        }
+        if (i === weeks) {
+          sq.classList.add("current");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
