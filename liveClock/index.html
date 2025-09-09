@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Oriental Digital Clock</title>
+  <!-- Import Brush Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to top, #f5e6cc, #fffdf7);
+      font-family: "serif";
+      overflow: hidden;
+    }
+
+    /* ====== Mist Background ====== */
+    .mist {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 80%);
+      opacity: 0.4;
+      animation: drift 60s linear infinite;
+    }
+
+    .mist:nth-child(2) {
+      animation-duration: 90s;
+      opacity: 0.25;
+    }
+
+    .mist:nth-child(3) {
+      animation-duration: 120s;
+      opacity: 0.2;
+    }
+
+    @keyframes drift {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* ====== Clock Container ====== */
+    .clock-container {
+      background: #fdf6e3;
+      border: 6px solid #b48a58;
+      padding: 40px 60px;
+      border-radius: 20px;
+      position: relative;
+      box-shadow: 0 0 25px rgba(180, 138, 88, 0.6),
+        inset 0 0 20px rgba(255, 255, 255, 0.5);
+      z-index: 10;
+    }
+
+    /* Decorative corners like a scroll */
+    .clock-container::before,
+    .clock-container::after {
+      content: "";
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border: 6px solid #b48a58;
+      border-radius: 50%;
+      background: #fdf6e3;
+      z-index: -1;
+    }
+
+    .clock-container::before {
+      top: -30px;
+      left: -30px;
+    }
+
+    .clock-container::after {
+      bottom: -30px;
+      right: -30px;
+    }
+
+    .time {
+      font-size: 4rem;
+      font-family: 'Zhi Mang Xing', cursive;
+      color: #3a2c1d;
+      text-shadow: 0 0 8px rgba(200, 150, 80, 0.8),
+        0 0 15px rgba(150, 100, 40, 0.6);
+      letter-spacing: 6px;
+      text-align: center;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #6b4b2c;
+      text-align: center;
+      font-style: italic;
+      font-family: 'Cinzel Decorative', serif;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Mist Layers -->
+  <div class="mist"></div>
+  <div class="mist"></div>
+  <div class="mist"></div>
+
+  <!-- Clock -->
+  <div class="clock-container">
+    <div class="time" id="clock">--:--:--</div>
+    <div class="subtitle">Flow of Time · Eternal Dao</div>
+  </div>
+
+  <script>
+const clock = document.getElementById("clock")
+
+function updateTime(){
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+
+  const timeString = `${hours}:${minutes}:${seconds}`;
+  clock.textContent = timeString;
+}
+      updateTime();
+      setInterval(updateTime, 1000)
+  </script>
+</body>
+
+</html>

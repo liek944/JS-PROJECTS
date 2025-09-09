@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stopwatch</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .stopwatch {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    .time {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      letter-spacing: 2px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn-start {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .btn-start:hover {
+      background: #45a049;
+    }
+
+    .btn-stop {
+      background: #f44336;
+      color: white;
+    }
+
+    .btn-stop:hover {
+      background: #d73529;
+    }
+
+    .btn-reset {
+      background: #2196F3;
+      color: white;
+    }
+
+    .btn-reset:hover {
+      background: #1976D2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stopwatch">
+    <div class="time" id="display">00:00:00</div>
+    <div class="buttons">
+      <button class="btn btn-start">Start</button>
+      <button class="btn btn-stop">Stop</button>
+      <button class="btn btn-reset">Reset</button>
+    </div>
+  </div>
+  <script>
+   const timeDisplay = document.getElementById("display");
+
+    // ✅ Better way: select single buttons
+    const startBtn = document.querySelector(".btn-start");
+    const stopBtn = document.querySelector(".btn-stop");
+    const resetBtn = document.querySelector(".btn-reset");
+
+    let startTime;     // when the stopwatch started
+    let elapsed = 0;   // time already passed (ms)
+    let timerId;       // interval reference
+
+    function updateDisplay(ms) {
+      // convert ms → hh:mm:ss
+      let totalSeconds = Math.floor(ms / 1000);
+      let hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+      let minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+      let seconds = String(totalSeconds % 60).padStart(2, "0");
+
+      timeDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    // START button
+    startBtn.addEventListener("click", function () {
+      const startTime = Date.now()
+     
+       intervalId = setInterval(() => {
+        let ms = Date.now() - startTime;
+        updateDisplay(ms);
+      }, 1000);
+
+    });
+
+    // STOP button
+    stopBtn.addEventListener("click", function () {
+      clearInterval(intervalId)
+       elapsed = Date.now() - startTime
+    });
+
+    // RESET button
+    resetBtn.addEventListener("click", function () {
+       clearInterval(intervalId)
+      elapsed = 0
+      timeDisplay.textContent = "00:00:00"
+    });
+
+  </script>
+</body>
+
+</html>
