@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ Accordion</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .accordion {
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .accordion-header {
+      background: #fff;
+      padding: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      position: relative;
+    }
+
+    .accordion-header::after {
+      content: "+";
+      position: absolute;
+      right: 1rem;
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+
+    .accordion-header.active::after {
+      content: "-";
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 1rem;
+      background: #fafafa;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .accordion-content p {
+      margin: 1rem 0;
+    }
+
+    /* When active, expand content */
+    .accordion-content.show {
+      max-height: 200px;
+      /* adjustable */
+      padding: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="accordion">
+    <div class="accordion-item">
+      <div class="accordion-header">What is your return policy?</div>
+      <div class="accordion-content">
+        <p>You can return any item within 30 days for a full refund.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <div class="accordion-header">How long does shipping take?</div>
+      <div class="accordion-content">
+        <p>Shipping usually takes 3–5 business days.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <div class="accordion-header">Do you offer customer support?</div>
+      <div class="accordion-content">
+        <p>Yes! We offer 24/7 support via email and live chat.</p>
+      </div>
+    </div>
+  </div>
+<script>
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(function (header) {
+      header.addEventListener('click', function () {
+        // Toggle the header's active state
+        header.classList.toggle('active');
+
+        // Toggle the content that belongs to this header
+        const content = header.nextElementSibling;
+        content.classList.toggle('show');
+      });
+    });
+
+
+  
+
+</script>
+</body>
+
+</html>
