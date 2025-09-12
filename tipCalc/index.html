@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tip Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <div class="tip-container">
+    <h2>Tip Calculator</h2>
+    <div class="input-group">
+      <label for="bill-input">Bill</label>
+      <input id="bill-input" type="number" min="0" step="0.01" placeholder="0.00">
+    </div>
+    <div class="input-group">
+      <label for="custom-tip">Tip %</label>
+      <input id="custom-tip" type="number" min="0" step="0.1" placeholder="Custom">
+    </div>
+    <div class="input-group">
+      <label for="people-input">People</label>
+      <input id="people-input" type="number" min="1" step="1" value="1">
+    </div>
+    <div id="error-message"></div>
+    <div class="result">
+      Tip / person: <span id="tip-per-person">₱0.00</span>
+      <span></span>
+      Total / person: <span id="total-per-person">₱0.00</span>
+    </div>
+    <button id="reset-btn">Reset</button>
+  </div>
+<script>
+
+const billInput = document.getElementById("bill-input");
+const tipInput = document.getElementById("custom-tip");
+const peopleInput = document.getElementById("people-input");
+const resetBtn = document.getElementById("reset-btn");
+const errorMsg = document.getElementById("error-message");
+const tipPerson = document.getElementById("tip-per-person");
+const totalTip = document.getElementById("total-per-person");
+
+errorMsg.textContent = '';
+
+function calculateTip() {
+  const billAmount = parseFloat(billInput.value);
+  const tipPercentage = parseFloat(tipInput.value);
+  const numPeople = parseInt(peopleInput.value, 10);
+
+  // Input validation
+  if (isNaN(billAmount) || isNaN(tipPercentage) || isNaN(numPeople) || numPeople < 1) {
+    tipPerson.textContent = '₱0.00';
+    totalTip.textContent = '₱0.00';
+    if (peopleInput.value.trim() === '') {
+      errorMsg.textContent = 'The Number of people cannot be empty.';
+    } else if (isNaN(numPeople)) {
+      errorMsg.textContent = 'Enter Valid Number.';
+    } else if (numPeople < 1) {
+      errorMsg.textContent = 'People cannot be less than 1.';
+    } else {
+      errorMsg.textContent = '';
+    }
+    return;
+  }
+
+  errorMsg.textContent = '';
+  const tipAmount = billAmount * (tipPercentage / 100);
+  const totalAmount = billAmount + tipAmount;
+  const tipPerPerson = tipAmount / numPeople;
+  const totalPerPerson = totalAmount / numPeople;
+
+  tipPerson.textContent = `₱${tipPerPerson.toFixed(2)}`;
+  totalTip.textContent = `₱${totalPerPerson.toFixed(2)}`;
+}
+
+billInput.addEventListener('input', calculateTip);
+tipInput.addEventListener('input', calculateTip);
+peopleInput.addEventListener('input', calculateTip);
+
+resetBtn.addEventListener('click', function() {
+  billInput.value = '';
+  tipInput.value = '';
+  peopleInput.value = 1;
+  tipPerson.textContent = '₱0.00';
+  totalTip.textContent = '₱0.00';
+  errorMsg.textContent = '';
+});
+
+calculateTip();
+
+</script>
+</body>
+</html>

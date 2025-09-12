@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Random Background Gradient Generator</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: rgba(255, 255, 255, 0.04);
+      --glass: rgba(255, 255, 255, 0.06);
+      --accent: #7c3aed;
+      --radius: 14px;
+      --g1: #ff7a18;
+      --g2: #af002d;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--bg), #020617 120%);
+      color: #e6eef8;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 980px;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* Preview card */
+    .preview-card {
+      background: linear-gradient(135deg, var(--g1), var(--g2));
+      border-radius: var(--radius);
+      min-height: 420px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .preview-area {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.95);
+      padding: 18px;
+      border-radius: 10px;
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+
+    .preview-code {
+      background: rgba(0, 0, 0, 0.14);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      font-size: 13px;
+      max-width: 760px;
+      overflow: auto;
+      box-shadow: 0 6px 18px rgba(2, 6, 23, 0.35);
+    }
+
+    /* Controls */
+    .controls {
+      background: linear-gradient(180deg, var(--glass), rgba(255, 255, 255, 0.02));
+      border-radius: var(--radius);
+      padding: 18px;
+      min-height: 420px;
+      box-shadow: 0 8px 24px rgba(2, 6, 23, 0.45);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .swatches {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .swatch {
+      flex: 1 1 0;
+      height: 64px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 600;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      box-shadow: inset 0 -10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 180ms ease;
+    }
+
+    .swatch:active {
+      transform: scale(0.98)
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    button.btn {
+      flex: 1 1 auto;
+      border: 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.2px;
+      background: linear-gradient(90deg, var(--accent), #ef4444);
+      color: white;
+      box-shadow: 0 8px 18px rgba(124, 58, 237, 0.12);
+      transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
+    }
+
+    button.btn.secondary {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: inherit;
+      font-weight: 600;
+      box-shadow: none;
+    }
+
+    .small {
+      font-size: 13px;
+      padding: 8px 10px;
+    }
+
+    .hint {
+      font-size: 12px;
+      opacity: 0.85;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    footer.note {
+      margin-top: auto;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    /* Responsive */
+    @media (max-width:900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .controls {
+        order: 2
+      }
+
+      .preview-card {
+        order: 1
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Preview panel (left) -->
+    <section class="preview-card" aria-label="Gradient preview" id="preview">
+      <div class="preview-header">
+        <div>
+          <div class="title">Random Gradient Generator</div>
+          <div class="subtitle">Click the button to generate a random gradient background.</div>  
+        </div>
+        <div class="meta">
+          <div class="hint">Preview</div>
+        </div>
+      </div>
+
+      <div class="preview-area">
+        <div>
+          <div style="font-size:36px;font-weight:800;letter-spacing:0.6px;margin-bottom:8px">Gradient</div>
+          <div class="preview-code" id="cssPreview">background: linear-gradient(135deg, var(--g1), var(--g2));</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Controls panel (right) -->
+    <aside class="controls" aria-label="Controls">
+
+      <div>
+        <div style="font-weight:700;margin-bottom:6px">Colors</div>
+        <div class="swatches">
+          <div class="swatch" id="swatch1" style="background:var(--g1);"> <span id="color1Txt">#ff7a18</span></div>
+          <div class="swatch" id="swatch2" style="background:var(--g2);"> <span id="color2Txt">#af002d</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:700;margin-bottom:6px">Actions</div>
+        <div class="btn-row">
+          <button class="btn" id="randomBtn">Randomize</button>
+          <button class="btn secondary small" id="copyCssBtn">Copy CSS</button>
+        </div>
+        <div style="margin-top:10px" class="hint">You can click any swatch to copy its hex (hook with JS).</div>
+      </div>
+
+      <div>
+        <div style="margin-top:8px;font-size:13px;color:rgba(255,255,255,0.8)">Angle: <input type="range"
+            id="angleRange" min="0" max="360" value="135" style="width:100%"></div>
+      </div>
+
+      <div style="margin-top:6px">
+        <div style="font-weight:700;margin-bottom:6px">Presets</div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn secondary small" id="preset1">Sunset</button>
+          <button class="btn secondary small" id="preset2">Ocean</button>
+        </div>
+      </div>
+
+      <div style="margin-top:6px">
+        <div style="font-weight:700;margin-bottom:6px">Export</div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn small" id="exportCss">Download CSS</button>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+<script>
+  const randomColor = document.getElementById("randomBtn")
+    const getCss = document.getElementById("copyCssBtn")
+    const swatch = document.getElementById("swatch1")
+    const swatch1 = document.getElementById("swatch2")
+    const angleRange = document.getElementById("angleRange")
+    const exportCssBtn = document.getElementById("exportCss")
+    const preview = document.getElementById("cssPreview")
+    const spancolor1 = document.getElementById("color1Txt")
+    const spancolor2 = document.getElementById("color2Txt")
+    const sunsetPresetBtn = document.getElementById("preset1")
+    const oceanPresetBtn = document.getElementById("preset2")
+
+    randomColor.addEventListener("click", function () {
+      const color1 = generateRandomHex();
+      const color2 = generateRandomHex();
+      document.documentElement.style.setProperty('--g1', color1);
+      document.documentElement.style.setProperty('--g2', color2);
+      spancolor1.textContent = color1;
+      spancolor2.textContent = color2;
+      // Get current angle
+      const angle = angleRange.value || 135;
+      preview.textContent = `background: linear-gradient(${angle}deg, ${color1}, ${color2});`;
+      // Update the actual gradient background
+      const previewCard = document.querySelector(".preview-card");
+      previewCard.style.background = `linear-gradient(${angle}deg, ${color1}, ${color2})`;
+    });
+
+    angleRange.addEventListener("input", function () {
+      const angle = angleRange.value || 135;
+
+      const g1 = getComputedStyle(document.documentElement).getPropertyValue('--g1').trim();
+      const g2 = getComputedStyle(document.documentElement).getPropertyValue('--g2').trim();
+
+      // Update the text snippet
+      preview.textContent = `background: linear-gradient(${angle}deg, ${g1}, ${g2});`;
+
+      // Update the actual gradient background
+      const previewCard = document.querySelector(".preview-card");
+      previewCard.style.background = `linear-gradient(${angle}deg, ${g1}, ${g2})`;
+    });
+
+    swatch.addEventListener("click", function () {
+      const getCss1 = spancolor1.textContent;
+      navigator.clipboard.writeText(getCss1).then(function () {
+        swatch.textContent = "Copied"
+      })
+    })
+
+    swatch1.addEventListener("click", function () {
+      const getCss1 = spancolor2.textContent;
+      navigator.clipboard.writeText(getCss1).then(function () {
+        swatch1.textContent = "Copied"
+      })
+    })
+
+    getCss.addEventListener("click", function () {
+      const cssToCopy = preview.textContent;
+      navigator.clipboard.writeText(cssToCopy).then(function () {
+        getCss.textContent = "Copied"
+      })
+    })
+
+    // Preset functionality
+    sunsetPresetBtn.addEventListener("click", function () {
+      const color1 = "#ff7a18";
+      const color2 = "#af002d";
+      setGradientColors(color1, color2);
+    });
+
+    oceanPresetBtn.addEventListener("click", function () {
+      const color1 = "#2193b0";
+      const color2 = "#6dd5ed";
+      setGradientColors(color1, color2);
+    });
+
+    // Helper function to set gradient colors
+    function setGradientColors(color1, color2) {
+      // Update CSS custom properties
+      document.documentElement.style.setProperty('--g1', color1);
+      document.documentElement.style.setProperty('--g2', color2);
+
+      // Update text displays
+      spancolor1.textContent = color1;
+      spancolor2.textContent = color2;
+
+      // Get current angle
+      const angle = angleRange.value || 135;
+
+      // Update CSS preview text
+      preview.textContent = `background: linear-gradient(${angle}deg, ${color1}, ${color2});`;
+
+      // Update the actual gradient background
+      const previewCard = document.querySelector(".preview-card");
+      previewCard.style.background = `linear-gradient(${angle}deg, ${color1}, ${color2})`;
+    }
+
+    function generateRandomHex() {
+      const hexChars = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += hexChars[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+      
+        exportCssBtn.addEventListener("click", function () {
+          const angle = angleRange.value || 135;
+          const g1 = getComputedStyle(document.documentElement).getPropertyValue('--g1').trim();
+          const g2 = getComputedStyle(document.documentElement).getPropertyValue('--g2').trim();
+          const cssContent = `:root {\n  --g1: ${g1};\n  --g2: ${g2};\n  --angle: ${angle}deg;\n}\n`;
+          const blob = new Blob([cssContent], { type: "text/css" });
+
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = "gradient.css";
+          link.click();
+        });
+</script>
+</body>
+
+</html>

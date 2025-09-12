@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tabs Component</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      padding: 2rem;
+    }
+
+    .tabs {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .tab-buttons {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .tab-buttons button {
+      flex: 1;
+      padding: 1rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .tab-buttons button.active {
+      border-bottom-color: #4f46e5;
+      color: #4f46e5;
+      font-weight: bold;
+    }
+
+    .tab-content {
+      padding: 1.5rem;
+      display: none;
+      /* Hidden by default */
+    }
+
+    .tab-content.active {
+      display: block;
+      /* Show active content */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tabs">
+    <div class="tab-buttons">
+      <button class="active">Home</button>
+      <button>Profile</button>
+      <button>Settings</button>
+    </div>
+    <div class="tab-content active">
+      <h2>Home</h2>
+      <p>Welcome to the home section.</p>
+    </div>
+    <div class="tab-content">
+      <h2>Profile</h2>
+      <p>Here’s your profile information.</p>
+    </div>
+    <div class="tab-content">
+      <h2>Settings</h2>
+      <p>Adjust your preferences here.</p>
+    </div>
+  </div>
+  <script>
+    const tabsContent = document.querySelectorAll('.tab-content')
+    const tabs = document.querySelector('.tabs')
+    const tabBtns = document.querySelectorAll('.tab-buttons button')
+
+    tabBtns.forEach(function(btn, index) {
+      btn.addEventListener('click', function() {
+
+        tabBtns.forEach(function(button) { button.classList.remove('active'); });
+        tabsContent.forEach(function(panel) { panel.classList.remove('active'); });
+        btn.classList.add('active');
+        tabsContent[index].classList.add('active');
+      });
+    });
+
+  </script>
+</body>
+
+</html>
